@@ -1,0 +1,30 @@
+local test: String = "hello"
+
+local a = 0.2555
+a = .33
+a = 1
+a = 1.
+
+local gay = true
+gay = false
+
+
+--[[ hi ]]
+
+local eatest = "a"
+-- hi
+
+struct Cat {
+  name: String
+}
+
+--implement Alive for Cat {
+--  function kill()
+--    print "cat $self.name died"
+--  end
+--}
+
+local kitty = Cat {}
+kitty:kill()
+
+"hi"

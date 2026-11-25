@@ -11,6 +11,10 @@ gay = false
 
 --[[ hi ]]
 
+--[=[
+  hello
+--]=]
+
 local eatest = "a"
 -- hi
 
@@ -18,11 +22,12 @@ struct Cat {
   name: String
 }
 
---implement Alive for Cat {
---  function kill()
---    print "cat $self.name died"
---  end
---}
+--[[implement Alive for Cat {
+  function kill()
+    print "cat $self.name died"
+  end
+}
+--]]
 
 local kitty = Cat {}
 kitty:kill()

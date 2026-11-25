@@ -46,12 +46,69 @@ function Tokenizer:parse_token()
     self:advance()
     self:advance()
 
-	while not self:is_eof() and self:peek() ~= "\n" do
+    local multiline = false
+    local multiline_eq_count = 0
+	if self:peek() == "[" then 
 	  self:advance()
+	  
+	  while not self:is_eof() do
+	    -- lua got the stupid --[==[equal signs]==]
+	    if self:peek() == "=" then 
+	      self:advance()
+
+	      multiline_eq_count = multiline_eq_count + 1
+	    elseif self:peek() == "[" then
+          self:advance()
+          
+          multiline = true
+          break
+	    else error("unexpected character " .. self:peek()) end
+	  end
+	end
+
+	-- todo: make these into comment tokens 
+	-- massive fat todo: support comments like `--[[\nstuff\n--]]`, 
+    --                   which should at that point become a helper function for strings `local hi = [[hello]]` too
+    --                   technically, it works, but it must be completed for the other todo to be complete :D
+	if multiline then
+	  -- go fuck yourself
+      while not self:is_eof() and self:peek() ~= "]" do
+        self:advance()
+      end
+
+      -- also add -- support
+      if self:peek() == "-" and self:peek(1) == "-" and self:peek(2) == "]" then
+        self:advance()
+        self:advance()
+        self:advance()
+      elseif self:peek() == "]" then
+		self:advance()
+      else multiline = false end --
+      -- else error("missing closing square bracket for multiline comment") end
+    end
+
+    if multiline then
+      local eq_count = 0
+      while not self:is_eof() and self:peek() ~= "]" do
+		if eq_count >= multiline_eq_count then 
+          error("too many equal signs, expected " ..  tostring(multiline_eq_count) .. ", got " .. tostring(eq_count))
+		end
+
+		self:advance()
+	  end
+
+      if self:peek() == "]" then
+        self:advance()
+      end
+	else
+	  while not self:is_eof() and self:peek() ~= "\n" do
+	    self:advance()
+	  end
 	end
 
     return nil
   end
+
 
   -- \n is still really important but for right now we ignore it
   if char:match("%s") or char == "\n" then

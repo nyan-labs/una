@@ -44,16 +44,16 @@ function Flags:set(key, value)
       	if k ~= key then goto continue end
       end
 
-      self[keys] = value
+      rawset(self, keys, value)
       do return true end -- again, wtf
       ::continue::
     end
   end
 
   if type(key) == "table" then
-    self[key] = value
+    rawset(self, key, value)
   else
-    self[{key}] = value
+    rawset(self, {key}, value)
   end
   return false
 end

@@ -89,7 +89,7 @@ function Parser:parse_expression()
     end
 
     if not self:check("operator", "=") then
-      error("expected equal sign, got sm bs")
+        return self:make_pos(self:make("variable", identifier.token.value[1], nil), token.pos)
     end
     self:advance()
 

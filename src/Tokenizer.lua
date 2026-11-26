@@ -215,7 +215,7 @@ function Tokenizer:parse_string()
   return self:make("string", s)
 end
 
-Tokenizer.operators = { ":", "=", "{", "}", "(", ")", "." }
+Tokenizer.operators = { ":", "=", "{", "}", "(", ")", ".", "+", "-", "%", "*", "/", "^", "#", "[", "]" }
 -- yes im aware lookup table is more efficient, its just not worth it
 function Tokenizer:parse_operator()
   local c = self:peek()

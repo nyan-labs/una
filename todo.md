@@ -1,0 +1,14 @@
+# todo
+- [ ] tokenizer
+  - [ ] add every lua keyword and operator
+  - [x] multiline comments
+  - [ ] multiline string
+  - [ ] impl
+- [ ] parser
+  - [ ] full lua 5.1 (jit) syntax support
+  - [ ] blocks
+  - [ ] impl and struct
+- [ ] transpiler
+  - [ ] produce valid lua code for 5.1 or 5.1 jit (other versions aren't a priority for now)
+- [ ] completion (server)
+  - stub
